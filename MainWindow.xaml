@@ -1,0 +1,172 @@
+﻿<Window x:Class="QuanLyBanHang.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Hệ Thống Quản Lý Bán Hàng" Height="720" Width="1280">
+
+    <Window.Resources>
+        <Style x:Key="MenuButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="Margin" Value="10 5"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="6">
+                            <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10 0" RecognizesAccessKey="True" Content="{TemplateBinding Content}">
+                                <ContentPresenter.ContentTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding}" TextWrapping="Wrap" TextTrimming="CharacterEllipsis" FontSize="14" Width="220"/>
+                                    </DataTemplate>
+                                </ContentPresenter.ContentTemplate>
+                            </ContentPresenter>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="LightGreen"/>
+                    <Setter Property="Foreground" Value="White"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">
+            <StackPanel Background="#2c3e50" Width="300" Height="709">
+                <TextBlock Text="MENU" Foreground="White" FontSize="22" FontWeight="Bold" Margin="20 30 0 20" />
+                <Separator Margin="10" Background="White" Height="1"/>
+
+                <Button Content="🏠 Bảng điều khiển" Style="{StaticResource MenuButtonStyle}" Command="{Binding ShowHomeCommand}" />
+
+                <!-- Quản lý người dùng -->
+                <StackPanel>
+                    <Button Content="👤 Quản lý người dùng" Style="{StaticResource MenuButtonStyle}" Click="ToggleUserMenu_Click"/>
+                    <StackPanel x:Name="UserSubMenu" Visibility="Collapsed" Margin="25 0 0 0">
+                        <Button Content="➕ Đăng ký tài khoản" Style="{StaticResource MenuButtonStyle}" FontSize="14" Click="ĐKTK"/>
+                        <Button Content="🔑 Đăng nhập / Đăng xuất" Style="{StaticResource MenuButtonStyle}" FontSize="14" Click="ĐNĐX"/>
+                        <Button Content="❓ Quên mật khẩu" Style="{StaticResource MenuButtonStyle}" FontSize="14" Click="QMK"/>
+                        <Button Content="👥 Hồ sơ người dùng" Style="{StaticResource MenuButtonStyle}" FontSize="14"/>
+                        <Button Content="✉️ Thông báo qua Email" Style="{StaticResource MenuButtonStyle}" FontSize="14"/>
+                        <Button Content="🌐 Đăng nhập Google/Facebook" Style="{StaticResource MenuButtonStyle}" FontSize="14"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <!-- Sản phẩm & Danh mục -->
+                <StackPanel>
+                    <Button Content="📦 Sản phẩm &amp; Danh mục" Style="{StaticResource MenuButtonStyle}" Click="ToggleProductMenu_Click"/>
+                    <StackPanel x:Name="ProductSubMenu" Visibility="Collapsed" Margin="25 0 0 0">
+                        <Button Content="🗂️ Quản lý sản phẩm" Style="{StaticResource MenuButtonStyle}" FontSize="14"/>
+                        <Button Content="📁 Danh mục sản phẩm" Style="{StaticResource MenuButtonStyle}" FontSize="14"/>
+                        <Button Content="🔍 Tìm kiếm &amp; Lọc" Style="{StaticResource MenuButtonStyle}" FontSize="14"/>
+                        <Button Content="🖼️ Tải ảnh lên" Style="{StaticResource MenuButtonStyle}" FontSize="14"/>
+                        <Button Content="📝 Mô tả sản phẩm" Style="{StaticResource MenuButtonStyle}" FontSize="14"/>
+                        <Button Content="⭐ Yêu thích" Style="{StaticResource MenuButtonStyle}" FontSize="14"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <!-- Giỏ hàng & Thanh toán -->
+                <StackPanel>
+                    <Button Content="🛒 Giỏ hàng &amp; Thanh toán" Style="{StaticResource MenuButtonStyle}" Click="ToggleCartMenu_Click"/>
+                    <StackPanel x:Name="CartSubMenu" Visibility="Collapsed" Margin="25 0 0 0">
+                        <Button Content="➕➖ Thêm/Xóa sản phẩm trong giỏ" Style="{StaticResource MenuButtonStyle}" FontSize="14"/>
+                        <Button Content="🔢 Cập nhật số lượng" Style="{StaticResource MenuButtonStyle}" FontSize="14"/>
+                        <Button Content="📋 Tóm tắt giỏ hàng" Style="{StaticResource MenuButtonStyle}" FontSize="14"/>
+                        <Button Content="🏷️ Áp dụng khuyến mãi" Style="{StaticResource MenuButtonStyle}" FontSize="14"/>
+                        <Button Content="💳 Phương thức thanh toán" Style="{StaticResource MenuButtonStyle}" FontSize="14"/>
+                        <Button Content="🏦 Cổng thanh toán" Style="{StaticResource MenuButtonStyle}" FontSize="14"/>
+                        <Button Content="🚚 Tích hợp vận chuyển" Style="{StaticResource MenuButtonStyle}" FontSize="14"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <!-- Quản lý đơn hàng -->
+                <StackPanel>
+                    <Button Content="📑 Quản lý đơn hàng" Style="{StaticResource MenuButtonStyle}" Click="ToggleOrderMenu_Click"/>
+                    <StackPanel x:Name="OrderSubMenu" Visibility="Collapsed" Margin="25 0 0 0">
+                        <Button Content="📄 Xem đơn hàng" Style="{StaticResource MenuButtonStyle}" FontSize="14"/>
+                        <Button Content="🔎 Chi tiết đơn hàng" Style="{StaticResource MenuButtonStyle}" FontSize="14"/>
+                        <Button Content="❌ Hủy đơn hàng" Style="{StaticResource MenuButtonStyle}" FontSize="14"/>
+                        <Button Content="🚚 Theo dõi đơn hàng" Style="{StaticResource MenuButtonStyle}" FontSize="14"/>
+                        <Button Content="🔔 Thông báo đơn hàng" Style="{StaticResource MenuButtonStyle}" FontSize="14"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <!-- Quản lý kho -->
+                <StackPanel>
+                    <Button Content="🏢 Quản lý kho" Style="{StaticResource MenuButtonStyle}" Click="ToggleInventoryMenu_Click"/>
+                    <StackPanel x:Name="InventorySubMenu" Visibility="Collapsed" Margin="25 0 0 0">
+                        <Button Content="📦 Theo dõi tồn kho" Style="{StaticResource MenuButtonStyle}" FontSize="14"/>
+                        <Button Content="⚠️ Cảnh báo tồn kho thấp" Style="{StaticResource MenuButtonStyle}" FontSize="14"/>
+                        <Button Content="⬆️⬇️ Nhập / Xuất kho" Style="{StaticResource MenuButtonStyle}" FontSize="14"/>
+                        <Button Content="🕓 Lịch sử kho" Style="{StaticResource MenuButtonStyle}" FontSize="14"/>
+                        <Button Content="🏭 Nhà cung cấp" Style="{StaticResource MenuButtonStyle}" FontSize="14"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <!-- Báo cáo & Phân tích -->
+                <StackPanel>
+                    <Button Content="📊 Báo cáo &amp; Phân tích" Style="{StaticResource MenuButtonStyle}" Click="ToggleReportMenu_Click"/>
+                    <StackPanel x:Name="ReportSubMenu" Visibility="Collapsed" Margin="25 0 0 0">
+                        <Button Content="💰 Báo cáo doanh thu" Style="{StaticResource MenuButtonStyle}" FontSize="14"/>
+                        <Button Content="🔥 Sản phẩm bán chạy" Style="{StaticResource MenuButtonStyle}" FontSize="14"/>
+                        <Button Content="👑 Khách hàng tốt nhất" Style="{StaticResource MenuButtonStyle}" FontSize="14"/>
+                        <Button Content="📦 Báo cáo tồn kho" Style="{StaticResource MenuButtonStyle}" FontSize="14"/>
+                        <Button Content="🏆 Hiệu suất nhân viên" Style="{StaticResource MenuButtonStyle}" FontSize="14"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <!-- Đánh giá & Hỗ trợ khách hàng -->
+                <StackPanel>
+                    <Button Content="💬 Đánh giá &amp; Hỗ trợ" Style="{StaticResource MenuButtonStyle}" Click="ToggleSupportMenu_Click"/>
+                    <StackPanel x:Name="SupportSubMenu" Visibility="Collapsed" Margin="25 0 0 0">
+                        <Button Content="⭐ Đánh giá sản phẩm" Style="{StaticResource MenuButtonStyle}" FontSize="14"/>
+                        <Button Content="❓ Hỏi đáp sản phẩm" Style="{StaticResource MenuButtonStyle}" FontSize="14"/>
+                        <Button Content="💬 Bình luận" Style="{StaticResource MenuButtonStyle}" FontSize="14"/>
+                        <Button Content="🆘 Hỗ trợ trực tuyến" Style="{StaticResource MenuButtonStyle}" FontSize="14"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <!-- Khuyến mãi & Marketing -->
+                <StackPanel>
+                    <Button Content="🎁 Khuyến mãi &amp; Marketing" Style="{StaticResource MenuButtonStyle}" Click="TogglePromotionMenu_Click"/>
+                    <StackPanel x:Name="PromotionSubMenu" Visibility="Collapsed" Margin="25 0 0 0">
+                        <Button Content="🏷️ Mã giảm giá" Style="{StaticResource MenuButtonStyle}" FontSize="14"/>
+                        <Button Content="📢 Chiến dịch" Style="{StaticResource MenuButtonStyle}" FontSize="14"/>
+                        <Button Content="🔔 Thông báo khuyến mãi" Style="{StaticResource MenuButtonStyle}" FontSize="14"/>
+                        <Button Content="🔗 Chia sẻ mạng xã hội" Style="{StaticResource MenuButtonStyle}" FontSize="14"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <!-- Cài đặt & Cấu hình -->
+                <StackPanel>
+                    <Button Content="⚙️ Cài đặt &amp; Cấu hình" Style="{StaticResource MenuButtonStyle}" Click="ToggleSettingsMenu_Click"/>
+                    <StackPanel x:Name="SettingsSubMenu" Visibility="Collapsed" Margin="25 0 0 0">
+                        <Button Content="🚚 Phí vận chuyển" Style="{StaticResource MenuButtonStyle}" FontSize="14"/>
+                        <Button Content="💵 Thuế (VAT, Dịch vụ)" Style="{StaticResource MenuButtonStyle}" FontSize="14"/>
+                        <Button Content="🔐 Phân quyền người dùng" Style="{StaticResource MenuButtonStyle}" FontSize="14"/>
+                        <Button Content="🌏 Hỗ trợ đa ngôn ngữ" Style="{StaticResource MenuButtonStyle}" FontSize="14"/>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+
+        <Grid Grid.Column="1" Name="MainContentArea">
+            <ContentControl Content="{Binding CurrentView}" />
+        </Grid>
+    </Grid>
+</Window>

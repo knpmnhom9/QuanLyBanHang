@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="qlbanhang-api\vendor\phpunit\php-text-template\.psalm\baseline.xml" />
+    <Content Include="qlbanhang-api\vendor\phpunit\php-text-template\.psalm\config.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="qlbanhang-api\vendor\nunomaduro\collision\.temp\.gitkeep" />
+    <None Include="qlbanhang-api\vendor\phar-io\manifest\.github\FUNDING.yml" />
+    <None Include="qlbanhang-api\vendor\phar-io\manifest\.github\workflows\ci.yml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="qlbanhang-api\vendor\symfony\mime\Resources\bin\" />
+    <Folder Include="qlbanhang-api\vendor\symfony\string\Resources\bin\" />
+    <Folder Include="Views\SP&amp;DM\" />
+    <Folder Include="Views\GH&amp;TT\" />
+    <Folder Include="Views\QLKho\" />
+    <Folder Include="Views\QLDonHang\" />
+    <Folder Include="Views\Bc&amp;Pt\" />
+    <Folder Include="Views\Dg&amp;Ht\" />
+    <Folder Include="Views\Km&amp;maketing\" />
+    <Folder Include="Views\Setting\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="9.0.5" />
+    <PackageReference Include="System.Data.SQLite.Core" Version="1.0.119" />
+  </ItemGroup>
+
+</Project>
