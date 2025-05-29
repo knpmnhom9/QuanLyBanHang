@@ -72,7 +72,7 @@ namespace QuanLyBanHang.Views.QLNguoiDung
             currentUser = "";
             lblStatus.Foreground = System.Windows.Media.Brushes.Black;
             lblStatus.Text = "Đã đăng xuất!";
-            UpdateUI();
+            UpdateUI(); 
         }
     }
 }
